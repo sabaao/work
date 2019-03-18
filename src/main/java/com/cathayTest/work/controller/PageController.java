@@ -32,7 +32,7 @@ public class PageController {
 		String age = (data.getAge()==null||data.getAge()=="")?null:data.getAge();
 		
 		int page = 0;
-        int size = 5; 
+        int size = 10; 
         System.out.println(request.getParameter("page"));
         System.out.println(request.getParameter("size"));
         
