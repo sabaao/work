@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+</head>
+
+<body>
+	<div>
+		<form th:action="@{/query}" th:object="${Form}" method="get">
+			姓名: <input type="text" th:field="*{name}" /> <br /> 年齡: <input
+				type="text" th:field="*{age}" /> <br /> 部門名稱: <input type="text"
+				th:field="*{deptName}" /> <br /> 員工編號: <input type="text"
+				th:field="*{empNo}" /> <br /> <input type="submit" />
+		</form>
+	</div>
+	<div>
+		<table border="1">
+			<tr>
+				<th>員工編號</th>
+				<th>姓名</th>
+				<th>部門ID</th>
+				<th>部門名稱</th>
+				<th>性別</th>
+				<th>電話</th>
+				<th>住址</th>
+				<th>年齡</th>
+				<th>建立時間</th>
+				<th>修改時間</th>
+			</tr>
+			<tr th:each="member : ${List}">
+				<td th:text="${member.empNo}"></td>
+				<td th:text="${member.name}"></td>
+				<td th:text="${member.deptID}"></td>
+				<td th:text="${member.deptName}"></td>
+				<td th:text="${member.sex}"></td>
+				<td th:text="${member.phoneNumber}"></td>
+				<td th:text="${member.address}"></td>
+				<td th:text="${member.age}"></td>
+				<td th:text="${member.createDate}"></td>
+				<td th:text="${member.modDate}"></td>
+		</table>
+	</div>
+	<!-- customers pagination -->
+	<nav aria-label="Pagination" th:if="${List.totalPages gt 0}">
+		<ul class="pagination justify-content-center font-weight-bold">
+			<li class="page-item"
+				th:classappend="${i eq List.number + 1} ? 'active'"
+				th:each="i : ${#numbers.sequence( 1, List.totalPages, 1)}">
+				<a class="page-link" th:href="@{/query?page={id}(id=${i})}"
+				th:text="${i}" th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+			</li>
+		</ul>
+	</nav>
+</body>
+</html>
