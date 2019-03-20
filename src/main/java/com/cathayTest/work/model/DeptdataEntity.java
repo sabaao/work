@@ -19,6 +19,10 @@ public class DeptdataEntity {
 
 
 	
+	public DeptdataEntity(String deptID, String deptName) {
+		this.deptID = deptID;
+		this.deptName = deptName;
+	}
 	public String getDeptName() {
 		return deptName;
 	}

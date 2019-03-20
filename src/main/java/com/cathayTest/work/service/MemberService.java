@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+
+import com.cathayTest.work.model.DeptdataEntity;
 import com.cathayTest.work.model.MemberEntity;
 
 @Service
@@ -12,7 +14,7 @@ public interface  MemberService {
 
 	 public List<MemberEntity> findMember();
 	 
-	 public Page<MemberEntity> findMemberNative(MemberEntity Member , Pageable pageable);
+	 public Page<MemberEntity> findMemberNative(MemberEntity Member);
 	 
 	 public MemberEntity getMember(String empNo);
 	  

@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
+import com.cathayTest.work.model.DeptdataEntity;
 import com.cathayTest.work.model.MemberEntity;
 import com.cathayTest.work.respository.MemberRepository;
 import com.cathayTest.work.respository.Nativequery;
@@ -22,33 +22,24 @@ public class MemberServiceImpl implements MemberService{
 		this.memberRepository = memberRepository;
 	}
 
+	
 	@Autowired
 	private Nativequery nativequery;
-	
 	
 	public void setNativequery(Nativequery nativequery) {
 		this.nativequery = nativequery;
 	}
-
+	
 	@Override
 	public List<MemberEntity> findMember() {
 		 List<MemberEntity> Member = memberRepository.findAll();
 		 return Member;
 	}
-	
-	public Page<MemberEntity> findMemberNative(MemberEntity Member ,Pageable pageable) {
-		String empNo = String.valueOf(Member.getEmpNo()); 
-		String name = Member.getName();
-		String deptId = String.valueOf(Member.getDeptID());
-		String age = Member.getAge();
-		return nativequery.findMemberNative(empNo,name,deptId,age, pageable);
+	public Page<MemberEntity> findMemberNative(MemberEntity member) {
+	    return nativequery.findMemberNative(member.getEmpNo(), member.getName(), member.getDeptName(), member.getAge(), PageRequest.of(0, 10));
 	}
-
-	
-
 	@Override
 	public MemberEntity getMember(String empNo) {
-		
 		Optional<MemberEntity> optMeb = memberRepository.findById(empNo);
 		return optMeb.get();
 	}
@@ -70,4 +61,5 @@ public class MemberServiceImpl implements MemberService{
 		memberRepository.save(Member);
 		
 	}
+
 }
